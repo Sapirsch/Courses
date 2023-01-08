@@ -1,2 +1,2 @@
 # Introduction to python
- All queries from course
+ All queries from the Introduction to python course
