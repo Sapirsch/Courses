@@ -1,51 +1,49 @@
 # Introduction to python
  All queries from the Introduction to python course
 
-# Assignment 5
+Assignemt 6
 
-# Q1 - implement a function is_sub_group that has two list arguments, checks if one of the list arguments is sub group of the other, if so returns True and the union list with unique elements.  else returns False and the union list with unique elements. the function returns two different variables. 
+ # Q1 - write a function named circle_s(r) that gets a radius as an argument and returns the surface of the circle with radius r. use pi constant from math module and pow function (don't forget to import this model before the function)
 
-def is_sub_group(lst1,lst2):
-    set1 = set(lst1)
-    set2 = set(lst2)
-    return(set1.issubset(set2) or set2.issubset(set1), sorted(set1.union(set2)))
+import math
+def circle_s(r):
+    surface = math.pi * pow(r, 2)
+    return surface
 
-# Q2 - A student at python course in MIT wrote a function that receives 3 arguments - list, a variable of not known type and an integer. The function inserts the second argument (var with not known type)  in the given list for each index that is equal to the third argument or divisible by it.  After applying this function on a given list, he noticed that this list was changed. Help him to change the code to preserve the original list. The updated function will return the original list and the changed list.
+# Q2 - Write a function named log_of_list(lst1) with one argument lst1 - a list with positive numbers. The function returns the list of natural log of the lst1 numbers formatted to float with 2 decimal places. 
 
-def append_at_index(lst1, var1, n):
-    new_list = []
-    for i, item in enumerate(lst1):
-        if i % n != 0:
-            new_list.append(item)
-        else:
-            new_list.append(var1)
-    return (lst1, new_list)
+import math
+def log_of_list(lst1):
+    base = math.e
+    lst2 = [str("%.2f" % round(math.log(elem, base), 2)) for elem in lst1 if float(elem) >= 0]
+    return lst2
+
+# Q3 - You are given a text file, this file contains a nucleotide sequence. Nucleotide sequence is a sequence of 4 letters 'A', 'T', 'C', 'G'. The first line in the file is a header - information about the organism. The first line does not contain the nucleotide sequence. The sequence starts from the second line. Each line contains the same number of nucleotides. The example of this file is attached to the exercise. Write a function called nuc_freq(file_name) that opens the file for reading and checks how many of each nucleotides ('A', 'T', 'C', 'G') are in this genetic sequence. The function will return the most frequent nucleotide of the sequence. suppose there is one most frequent nucleotide. Write another function called dna_2_rna(file_name) that translates the genetic code from the file to rna code. The translation is done by the following rules: 'A' is translated to 'A', 'C' is translated to 'C', 'G' is translated to 'G' and 'T' is translated to 'U'.  The function will return the number of 'U's in the rna code. *for both functions suppose that the file is in the same folder with the python functions (so you can open it by it's name)
+
+def nuc_freq(name_of_file):
+    f = open(name_of_file, 'r')
+    freq_dict = {}
+    f.readline()
+    for line in f:
+        for letter in line:
+            freq_dict[letter] = freq_dict.get(letter, 0) + 1 
+    f.close()
+    sorted_dict = sorted(freq_dict.keys(), key = freq_dict.get, reverse = True)
+    return sorted_dict[0]
     
-
-# Q3 - Write a function called second_most_popular_character which receives a string and returns the second most popular letter in this string. In case there is more than one such letter, you need to return the smallest among them (in the alphabetic order). no case sensitivity. 
-
-def second_most_popular_character(text):
-    lower_text = str.lower(text)
-    count_dict = {}
-    for char in lower_text: # lower caps
-        count_dict[char] = count_dict.get(char, 0) + 1 # counting each letter's appearance 
-    sorted_letters_by_counter = sorted(count_dict.keys(), key = count_dict.get, reverse = True) # sorting the keys by their values
-    for i, letter1 in enumerate(sorted_letters_by_counter[:-1]):
-        if count_dict[letter1] == count_dict[sorted_letters_by_counter[i+1]]: # We want the second most popular letter
-            continue # It continues until we'll get the secound most popular letter
-        else:
-            break
-    same_value = []
-    for j, letter2 in enumerate(sorted_letters_by_counter[i+1:-1]): # we need to start a new loop in the position of the secound most popular letter, and see if it's value appears again
-        if count_dict[letter2] == count_dict[sorted_letters_by_counter[i+1+j+1]]:
-            same_value.append(letter2)
-            same_value.append(sorted_letters_by_counter[i+1+j+1])             
-            continue
-        else:
-            same_value.append(letter2)
-            break    
-    sorted_list_by_alphabetical_order = sorted(same_value)
-    return (sorted_list_by_alphabetical_order[0])
-
-
+    
+def dna_2_rna(name_of_file):
+    f2 = open(name_of_file, 'r')
+    f3 = open('ex7_ques3_rna.txt', 'w')
+    counter = 0
+    f2.readline()
+    for line in f2:
+        for char in line:
+            if char != "T":
+                f3.write(char)
+            else:
+                f3.write("U")
+                counter+=1
+    f2.close()
+    return counter
 
