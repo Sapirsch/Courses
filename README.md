@@ -1,51 +1,51 @@
 # Introduction to python
  All queries from the Introduction to python course
 
-# Assignment 4
+# Assignment 5
 
-# Q1 - implement a function called sum_of_mult_of_adjacent(lst1) that receives a list lst1 as an argument and returns the sum of the product of each pair of adjacent numbers in the list.
+# Q1 - implement a function is_sub_group that has two list arguments, checks if one of the list arguments is sub group of the other, if so returns True and the union list with unique elements.  else returns False and the union list with unique elements. the function returns two different variables. 
 
-def sum_of_mult_of_adjacent(lst1):
-    sum_of_adjacent_numbers = 0
-    for i, elem in enumerate(lst1[:-1]):
-        sum_of_adjacent_numbers+= (elem * lst1[i+1])
-    return sum_of_adjacent_numbers
+def is_sub_group(lst1,lst2):
+    set1 = set(lst1)
+    set2 = set(lst2)
+    return(set1.issubset(set2) or set2.issubset(set1), sorted(set1.union(set2)))
 
-# Q2 - Implement a function called sum_divisible_by_k which receives 2 arguments: a list of numbers called lst and a positive number k which default value is 1, and returns the sum of all numbers in the list that are divisible by k. If there is no number divisible by k (for example when the list is empty), you will return 0.
+# Q2 - A student at python course in MIT wrote a function that receives 3 arguments - list, a variable of not known type and an integer. The function inserts the second argument (var with not known type)  in the given list for each index that is equal to the third argument or divisible by it.  After applying this function on a given list, he noticed that this list was changed. Help him to change the code to preserve the original list. The updated function will return the original list and the changed list.
 
-def sum_divisible_by_k(lst, k=1):
-    sum_of_numbers = 0
-    for number in lst:
-        if number % k == 0:
-            sum_of_numbers += number
-    return sum_of_numbers
-
-
-# Q3 - Implement a function parallel_vec(lst1, lst2) with 2 arguments lst1 lst2 that are list of length n, that represent two vectors, the function will return True if the vectors are parallel , else False. defenition. two vectors  v1=(n1,n2,n3) v2=(k1,k2,k3) are parallel vectors if the ratio between all components is the same:  n1/k1 = n2/k2 = n3/k3
-
-def parallel_vec(lst1, lst2):
-    previous_devision = lst1[0] / lst2[0]
-    for i,j in zip(lst1, lst2):
-        if i / j != previous_devision:
-            return False
-            break
-    return True
-        
-# Q4 - Implement a function called mult_odd_digits(n) which receives a positive integer n and returns the product of its digits that are odd. If there are no odd digits, return 1.
-
-def mult_odd_digits(n):
-    multiplication_of_odd_digits = 1
-    str_n = str(n)
-    for digit in str_n:
-        if int(digit) % 2 == 1:
-            multiplication_of_odd_digits *= int(digit)
-    return multiplication_of_odd_digits
-
-
-# Q5 - mplement function sort_by_n_char(lst1, n) that receives a list lst1 and an int n and returns sorted lst1 by the n-th character of each string in lst1.
-
-def sort_by_n_char(lst1, n):
-    res = sorted(lst1, key = lambda x : x[n])
-    return res
-
+def append_at_index(lst1, var1, n):
+    new_list = []
+    for i, item in enumerate(lst1):
+        if i % n != 0:
+            new_list.append(item)
+        else:
+            new_list.append(var1)
+    return (lst1, new_list)
     
+
+# Q3 - Write a function called second_most_popular_character which receives a string and returns the second most popular letter in this string. In case there is more than one such letter, you need to return the smallest among them (in the alphabetic order). no case sensitivity. 
+
+def second_most_popular_character(text):
+    lower_text = str.lower(text)
+    count_dict = {}
+    for char in lower_text: # lower caps
+        count_dict[char] = count_dict.get(char, 0) + 1 # counting each letter's appearance 
+    sorted_letters_by_counter = sorted(count_dict.keys(), key = count_dict.get, reverse = True) # sorting the keys by their values
+    for i, letter1 in enumerate(sorted_letters_by_counter[:-1]):
+        if count_dict[letter1] == count_dict[sorted_letters_by_counter[i+1]]: # We want the second most popular letter
+            continue # It continues until we'll get the secound most popular letter
+        else:
+            break
+    same_value = []
+    for j, letter2 in enumerate(sorted_letters_by_counter[i+1:-1]): # we need to start a new loop in the position of the secound most popular letter, and see if it's value appears again
+        if count_dict[letter2] == count_dict[sorted_letters_by_counter[i+1+j+1]]:
+            same_value.append(letter2)
+            same_value.append(sorted_letters_by_counter[i+1+j+1])             
+            continue
+        else:
+            same_value.append(letter2)
+            break    
+    sorted_list_by_alphabetical_order = sorted(same_value)
+    return (sorted_list_by_alphabetical_order[0])
+
+
+
