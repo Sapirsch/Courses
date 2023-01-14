@@ -1,11 +1,11 @@
 # Introduction to python
- All queries from the Introduction to python course
+#All queries from the Introduction to python course
 
 # Assignment 1
 
 # Q1 - Assign variable with name varName to be the string: "happy to learn python" . save half of the string (including the middle char) to another variable called resultVar.
 
- varName = "happy to learn python"
+varName = "happy to learn python"
 #write the rest here:
 length = len(varName)
 half = -(-length//2)
