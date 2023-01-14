@@ -1,85 +1,51 @@
 # Introduction to python
  All queries from the Introduction to python course
 
-# Assignment 3
+# Assignment 4
 
-# Q1 - Given a list called A containing positive integers, and given a positive integer a, assign variable res with the index of the first number in the list which is divisible by a. If there is no such number, print -1. You can assume . that a is different from 0, but A could also be an empty list.
+# Q1 - implement a function called sum_of_mult_of_adjacent(lst1) that receives a list lst1 as an argument and returns the sum of the product of each pair of adjacent numbers in the list.
 
-#the following lines are used to get an input from user. do not change them
-a = int(input("integer: "))
-res = -1
-for i in A:
-    if int(i) % a == 0:
-        res = A.index(i)
-        break
+def sum_of_mult_of_adjacent(lst1):
+    sum_of_adjacent_numbers = 0
+    for i, elem in enumerate(lst1[:-1]):
+        sum_of_adjacent_numbers+= (elem * lst1[i+1])
+    return sum_of_adjacent_numbers
 
-# Q2 - Given a list of strings (variables of type str) called B, find the average length of the strings in the list. nd print the number of strings whose length is strictly greater than the average length. Do this both with a while loop and with a for loop. You can assume that the list B contains at least one string.
+# Q2 - Implement a function called sum_divisible_by_k which receives 2 arguments: a list of numbers called lst and a positive number k which default value is 1, and returns the sum of all numbers in the list that are divisible by k. If there is no number divisible by k (for example when the list is empty), you will return 0.
 
-#suppose that B is given - you don't need to assign it
-lengths = [len(word) for word in B]
-ave_size = sum(lengths) // len(lengths)
-counter_for_loop = 0
-for item in B:
-    if len(item) > ave_size:
-        counter_for_loop+=1
-print(f"The number of strings longer than the average is: {counter_for_loop}")
-i = 0
-lengths_while = 0
-while i < len(B):
-    lengths_while = lengths_while + len(B[i])
-    i+=1
-ave_size_while = lengths_while // len(B)
-ind = 0
-counter_while_loop = 0
-while ind < len(B):
-    if len(B[ind]) > ave_size:
-        counter_while_loop+=1
-    ind+=1
-print(f"The number of strings longer than the average is: {counter_while_loop}")
+def sum_divisible_by_k(lst, k=1):
+    sum_of_numbers = 0
+    for number in lst:
+        if number % k == 0:
+            sum_of_numbers += number
+    return sum_of_numbers
+
+
+# Q3 - Implement a function parallel_vec(lst1, lst2) with 2 arguments lst1 lst2 that are list of length n, that represent two vectors, the function will return True if the vectors are parallel , else False. defenition. two vectors  v1=(n1,n2,n3) v2=(k1,k2,k3) are parallel vectors if the ratio between all components is the same:  n1/k1 = n2/k2 = n3/k3
+
+def parallel_vec(lst1, lst2):
+    previous_devision = lst1[0] / lst2[0]
+    for i,j in zip(lst1, lst2):
+        if i / j != previous_devision:
+            return False
+            break
+    return True
         
+# Q4 - Implement a function called mult_odd_digits(n) which receives a positive integer n and returns the product of its digits that are odd. If there are no odd digits, return 1.
+
+def mult_odd_digits(n):
+    multiplication_of_odd_digits = 1
+    str_n = str(n)
+    for digit in str_n:
+        if int(digit) % 2 == 1:
+            multiplication_of_odd_digits *= int(digit)
+    return multiplication_of_odd_digits
 
 
-# Q3 - Given a list of numbers called C, write a piece of code that prints the sum of the product of each pair of adjacent numbers in the list.
+# Q5 - mplement function sort_by_n_char(lst1, n) that receives a list lst1 and an int n and returns sorted lst1 by the n-th character of each string in lst1.
 
-# suppose the list C is defined - don't assign C in your code
-prev = 0
-sum_adjacent = 0
-for item in C:
-    new = int(item) * prev
-    sum_adjacent+=new
-    prev = int(item)
-print(sum_adjacent)
+def sort_by_n_char(lst1, n):
+    res = sorted(lst1, key = lambda x : x[n])
+    return res
 
-
-# Q4 - You are given a list of integers C. Use this list to make another list res_list that every element of it is absolute value of each element in C.
-
-res_list = [abs(int(item)) for item in C]
-
-# Q5 - You are given a list of items C. Use this list to create another list res_list that contains only the C items that are integers. 
-
-res_list = [item for item in C if str(item).isdigit()]
-
-# Q6 - sort the given list C in a descending order of absolute values of its items and save the sorted list in res_list.
-
-res_list = sorted(C, reverse = True, key = abs)
-
-# Q7 - Ask user to enter a string using input() function (argument must be "enter your str: "). Split the string by spaces separator and store it as a list. For every item in this list check if the item is numeric and if so calculate the sum of the numbers. Store this information in another list and sort it based on the value of sum. If the item is not numeric drop it.
-
-#input from user - don't change this 
-str_in = input("enter your str: ")
-list_in = str_in.split()
-w = [item for item in list_in if item.isdigit()]
-res = []
-for num in w:
-    sum_digits = 0
-    for digit in num:
-        sum_digits += int(digit)
-    res.append(sum_digits)
-res = sorted(res)
-
-
-# Q8 - You are given 3 lists A, B, C. Assume that they are defined before and create a new list that will be the concatenation of these 3 lists.
-
-A.extend(B)
-A.extend(C)
-print(A)
+    
