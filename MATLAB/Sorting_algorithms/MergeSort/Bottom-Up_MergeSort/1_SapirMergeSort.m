@@ -1,8 +1,8 @@
+% I this folder we explored different versions of the sorting algorithms and compared their running time
+
 % In these scripts we explored the MergeSort function by its two approchains: bottom-up and top-bottom (recursion).
 
 % This specific script presents my version of bottom-up MergeSort  
-
-
 
 function sorted_arr = SapirMergeSort(unsorted_arr)
 

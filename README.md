@@ -1,3 +1,3 @@
 # Introduction to python
- All queries from the Introduction to python course
+Queries from python and MATLAB courses
 
